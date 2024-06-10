@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+   
+    <!-- Bootstrap -->
+    <link href="../../../../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../../../../../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../../../../../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+   <link href="../../../../../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="../../../../../build/css/custom.min.css" rel="stylesheet">
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <% if(user.user_roll == "admin"){%>
+          <%- include ('./partials/sidebar') %>
+       <% }else if(user.user_roll == "Sales_Manager"){%>
+        <%- include ('./partials/sidebarsalesmanager') %>
+        <% }else if(user.user_roll =="Inventory_Manager"){%>
+          <%- include ('./partials/sidebarinventorymgr') %>
+          <% }else if( user.user_roll ==="Production_Manager" ){%>
+            <%- include ('./partials/sidebarproductionmgr') %>
+            <% }%>
+            <!-- top navigation -->
+            <%- include ('./partials/header') %>
+			<!-- /top navigation -->
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="container-fluid">
+                <div class="page-header min-height-100 border-radius-xl mt-4" style="background-image: url('../../../../assets/img/curved-images/sds.jpg'); background-position-y: 50%;">
+                  <span class="mask  opacity-6"></span>
+                  <div >
+                    <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Production Logs</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Mattress Production Logs </li>
+                      </ol>
+                    </nav>
+                  </div>
+                </div>
+              
+              </div>
+            <div class="clearfix"></div>
+
+            <div class="row" style="display: block;">
+            
+              <div class="col-md-12 col-sm-12  ">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Mattress Production Logs</h2>
+                   
+                    <div class="clearfix"></div>
+                  </div>
+
+                  <div class="x_content">
+                    <%- include ('./partials/messages')%>
+                    <div class="table-responsive">
+                      <table class="table table-striped jambo_table bulk_action" id="myTable">
+                        <thead>
+                          <tr class="headings">
+                            <th class="column-title"># </th>
+                            <th class="column-title"> Product Name </th>
+                            <th class="column-title"> Brand Name </th>
+                            <th class="column-title"> Amount </th>
+                          
+                            <th class="column-title">Warehouse Stored</th>
+                            <th class="column-title">Date</th>
+                            
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                        
+                       <% if(mattressprolog.length >0){%>
+                        <% var i="0" %>
+                       <% mattressprolog.forEach(function (row){%>
+                        <% i++; %>
+                        <tr class="even pointer">
+                            <td class=" "><%= i %></td>
+                            <td class=" "><%= row.productname %></td>
+                            <td class=" "><%= row.brandname %></td>
+                            
+                           
+                            <td class=" "> <%= row.totalproduction %>  </td>
+                            <td class=" "> <%= row.warehousename %>  </td>
+                            <td class=" "> <%= new Date(row.createdAt).toLocaleDateString() %>  </td>
+                           
+                          </tr>
+                       <% })}else{%>
+                        <tr>
+                            <div class="alert alert-warning alert-dismissible " role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                </button>
+                                <strong>Error!</strong> No Inventory Log Data Found!
+                              </div>
+                        </tr>
+                       <% }%>
+                        </tbody>
+                      </table>
+                    </div>
+                    <SCRIPT language=Javascript>
+                        <!--
+                        function isNumberKey(evt)
+                        {
+                           var charCode = (evt.which) ? evt.which : evt.keyCode;
+                           if (charCode != 46 && charCode > 31 
+                             && (charCode < 48 || charCode > 57))
+                              return false;
+                 
+                           return true;
+                        }
+                        //-->
+                     </SCRIPT>
+						
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+      <%- include ('./partials/footer')%>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    <!-- jQuery -->- 
+    <script src="../../../../../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+   <script src="../../../../../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FastClick -->
+    <script src="../../../../../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../../../../../vendors/nprogress/nprogress.js"></script>
+    <!-- iCheck -->
+    <script src="../../../../../vendors/iCheck/icheck.min.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="../../../../../build/js/custom.min.js"></script>
+    <script>
+		$(document).ready(function() {
+			$('#myTable').DataTable();
+		});
+	</script>
+	<link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
+ 
+	<script src="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,209 @@
+<html lang="en">
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Meta, title, CSS, favicons, etc. -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  
+	<!-- Bootstrap -->
+	<link href="../../../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link href="../../../../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<!-- NProgress -->
+	<link href="../../../../vendors/nprogress/nprogress.css" rel="stylesheet">
+	<!-- iCheck -->
+	<link href="../../../../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+	<!-- bootstrap-wysiwyg -->
+	<link href="../../../../vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+	<!-- Select2 -->
+	<link href="../../../../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+	<!-- Switchery -->
+	<link href="../../../../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+	<!-- starrr -->
+	<link href="../../../../vendors/starrr/dist/starrr.css" rel="stylesheet">
+	<!-- bootstrap-daterangepicker -->
+	<link href="../../../../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+	<!-- Custom Theme Style -->
+	<link href="../../../../build/css/custom.min.css" rel="stylesheet">
+</head>
+
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+            <%- include ('./partials/sidebar') %>
+            <!-- top navigation -->
+            <%- include ('./partials/header') %>
+			<!-- /top navigation -->
+
+			<!-- page content -->
+			<div class="right_col" role="main">
+                
+				<div class="">
+					<div class="container-fluid">
+                        <div class="page-header min-height-100 border-radius-xl mt-4" style="background-image: url('../../../../assets/img/curved-images/sds.jpg'); background-position-y: 50%;">
+                          <span class="mask  opacity-6"></span>
+                          <div >
+                            <nav aria-label="breadcrumb">
+                              <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item"><a href="#">Manage Row Materials</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Add New Row Material</li>
+                              </ol>
+                            </nav>
+                          </div>
+                        </div>
+                      
+                      </div>
+					<div class="clearfix"></div>
+					<div class="row">
+                        <%- include ('./partials/messages')%>
+						<div class="col-md-12 col-sm-12 ">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>Add New Row Material</h2>
+									
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+									<br />
+									<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/rowmaterial/addnewrowmaterial" method="post" >
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="user-roll">Material Name <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+                                                <select class="form-control" name="matname" id="matname">
+													<option value="0">Select Material Name</option>
+													<% materialname.forEach(function (row){%>
+                                                        <option value="<%= row.rmid %>"><%= row.rmname %></option>
+                                                    <%})%>
+													
+												</select></div>
+										</div>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="user-roll">Warehouse Name <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+                                                <select class="form-control" name="wareid" id="wareid">
+													<option value="0">Select Warehouse Name</option>
+													<% warehouse.forEach(function (row){%>
+                                                        <option value="<%= row.warehouseid %>"><%= row.warehousename %></option>
+                                                    <%})%>
+													
+												</select></div>
+										</div>
+										
+                                      
+                                       
+                                        <div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="user-roll">Scale Type <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+                                                <select class="form-control" name="scaletype" id="scaletype">
+													<option value="0">Select Scale Type</option>
+													<option value="Barrel">Barrel</option>
+													<option value="Bundle">Bundle</option>
+													<option value="Roll">Roll</option>
+													
+												</select></div>
+										</div>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="user-roll">Unit Measure <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+                                                <select class="form-control" name="unitmeasure" id="unitmeasure">
+													<option value="0">Select Unit Measure</option>
+													<option value="KG">KG</option>
+													<option value="MeterSquare">Meter<span>&sup2;</span></option>
+													<option value="Liter">Liter</option>
+													
+												</select></div>
+										</div>
+                                        <div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="email-name">Total Amount <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<input type="text" id="totalamount"  name="totalamount" required="required" onkeypress="return isNumberKey(event)" class="form-control ">
+											</div>
+										</div>
+                                       
+                                        
+                                        <SCRIPT language=Javascript>
+                                            <!--
+                                            function isNumberKey(evt)
+                                            {
+                                               var charCode = (evt.which) ? evt.which : evt.keyCode;
+                                               if (charCode != 46 && charCode > 31 
+                                                 && (charCode < 48 || charCode > 57))
+                                                  return false;
+                                     
+                                               return true;
+                                            }
+                                            //-->
+                                         </SCRIPT>
+										
+                                      
+										<div class="ln_solid"></div>
+										<div class="item form-group">
+											<div class="col-md-6 col-sm-6 offset-md-3">
+												
+												<button type="submit" class="btn btn-success btn-block">Submit</button>
+											</div>
+										</div>
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- /page content -->
+
+			<!-- footer content -->
+		<%- include ('./partials/footer')%>
+			<!-- /footer content -->
+		</div>
+	</div>
+
+	<!-- jQuery -->
+	<script src="../../../../vendors/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="../../../../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- FastClick -->
+	<script src="../../../../vendors/fastclick/lib/fastclick.js"></script>
+	<!-- NProgress -->
+	<script src="../../../../vendors/nprogress/nprogress.js"></script>
+	<!-- bootstrap-progressbar -->
+	<script src="../../../../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+	<!-- iCheck -->
+	<script src="../../../../vendors/iCheck/icheck.min.js"></script>
+	<!-- bootstrap-daterangepicker -->
+	<script src="../../../../vendors/moment/min/moment.min.js"></script>
+	<script src="../../../../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<!-- bootstrap-wysiwyg -->
+	<script src="../../../../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+	<script src="../../../../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+	<script src="../../../../vendors/google-code-prettify/src/prettify.js"></script>
+	<!-- jQuery Tags Input -->
+	<script src="../../../../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+	<!-- Switchery -->
+	<script src="../../../../vendors/switchery/dist/switchery.min.js"></script>
+	<!-- Select2 -->
+	<script src="../../../../vendors/select2/dist/js/select2.full.min.js"></script>
+	<!-- Parsley -->
+	<script src="../../../../vendors/parsleyjs/dist/parsley.min.js"></script>
+	<!-- Autosize -->
+	<script src="../../../../vendors/autosize/dist/autosize.min.js"></script>
+	<!-- jQuery autocomplete -->
+	<script src="../../../../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+	<!-- starrr -->
+	<script src="../../../../vendors/starrr/dist/starrr.js"></script>
+	<!-- Custom Theme Scripts -->
+	<script src="../../../../build/js/custom.min.js"></script>
+
+</body></html>

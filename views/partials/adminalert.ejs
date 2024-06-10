@@ -1,0 +1,36 @@
+<% if(adminalert.length >0){%>
+    <% adminalert.forEach(function (row){ %>
+        
+        <div class="alert alert-warning alert-dismissible " role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+          </button>
+          <strong>Alert!</strong> 
+          <%= row.productname %>/<%= row.brandname %> አዲስ የምርት ጥያቄ አለዎት እባክዎን ይመልከቱ እና ያዘምኑ ።<br>
+          አዲስ የምርት ጥያቄ መጠን <%= row.totamount %> !
+        </div>
+     <% }) %>
+    <%} else{%>
+     
+    <%}%>
+    <% if(adminalert2.length >0){%>
+      <% adminalert2.forEach(function (row){ %>
+          
+          <div class="alert alert-warning alert-dismissible " role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+            </button>
+            <strong>Alert!</strong> 
+            <%= row.productname %>/<%= row.brandname %> የምርት ብዛት <%= row.totamount %><br>
+            ምርቶች አነስተኛ የምርት መጠን አላቸው። <br>እባክዎን ይመልከቱ እና ለምርት አስተዳዳሪ ሪፖርት ያድርጉ።
+          </div>
+       <% }) %>
+      <%} else{%>
+       
+      <%}%>
+      <%if(adminalert.length == 0 && adminalert2.length == 0  ){ %>
+        <div class="alert alert-success alert-dismissible " role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+          </button>
+          <strong>Alert!</strong> 
+          ምንም አይነት የማስጠንቀቂያ መልዕክት የለም።
+        </div>
+     <% }%>

@@ -1,0 +1,121 @@
+<div class="col-md-3 left_col">
+    <div class="left_col scroll-view">
+      <div class="navbar nav_title" style="border: 0;">
+        <a href="/dashboard" class="site_title"> <span>PEAKCOCK FOAM ERP</span></a>
+      </div>
+
+      <div class="clearfix"></div>
+
+      <!-- menu profile quick info -->
+      <div class="profile clearfix">
+        <div class="profile_pic">
+          <img src="../../../images/img.jpg" alt="..." class="img-circle profile_img">
+        </div>
+        <div class="profile_info">
+          <span>Welcome,</span>
+          <h2><%= user.username %></h2>
+        </div>
+      </div>
+      <!-- /menu profile quick info -->
+
+      <br />
+
+      <!-- sidebar menu -->
+      <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+        <div class="menu_section">
+         
+          <ul class="nav side-menu">
+            <li><a><i class="fa fa-home"></i> Manage Users <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu">
+                <li><a href="/users/createuser">Create System Users</a></li>
+                <li><a href="/users/userlist">Users List</a></li>
+              
+              </ul>
+            </li>
+            
+            <li><a><i class="fa fa-shopping-cart"></i> Manage Sales <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu">
+                <li><a href="/sales/todaysales">Today Sales</a></li>
+                <li><a href="/sales/cashsales">Cash Sales</a></li>
+                <li><a href="/sales/creditsales">Credit Sales</a></li>
+                <li><a href="/sales/banktransfersales">Bank Transfer Sales</a></li>
+               
+                <li><a href="/sales/allsaleslist">All Sales List</a></li>
+                           </ul>
+            </li>
+            <li><a><i class="fa fa-list"></i> Manage  Inventory <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu">
+                <li><a href="/inventory/wipinventory">WIP Inventory</a></li>
+                <li><a href="/inventory/finishproductinventory">Finish Product Inventory</a></li>
+                <li><a href="/inventory/productrequest">Product Request</a></li>
+              
+                       </ul>
+            </li>
+            <li><a><i class="fa fa-clone"></i> Manage  Row Materials <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu">
+                <li><a href="/rowmaterial/addrowmaterial">Add New Row Material </a></li>
+                <li><a href="/rowmaterial/rowmateriallist"> Row Materials List </a></li>
+                <li><a href="/rowmaterial/rowmateriallog"> Row Materials Log </a></li>
+              </ul>
+            </li>
+            <li><a><i class="fa fa-users"></i> Manage  Customer <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu">
+                <li><a href="/customer/topcustomerlist">Top Customer List </a></li>
+                <li><a href="/customer/customerlist"> All Customer List </a></li>
+              
+              </ul>
+            </li>
+            <li><a><i class="fa fa-user"></i> Manage  Employee <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu">
+                <li><a href="/employee/createnewemployee">Add New Employee</a></li>
+                <li><a href="/employee/employeelist">Employee List </a></li>
+               
+              </ul>
+            </li>
+            <li><a><i class="fa fa-mail-reply"></i> Manage  Expense <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu">
+            
+                <li><a href="/expense/expenserequest">Expense Request</a></li>
+                <li><a href="/expense/topexpenselist">Top Expense List </a></li>
+                <li><a href="/expense/allexpenselist">All Expense List </a></li>
+              </ul>
+            </li>
+            <li><a><i class="fa fa-mail-forward"></i> Manage Purchase<span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu">
+                <li><a href="/purchase/addnewpurchase">Add Purchase</a></li>
+                <li><a href="/purchase/purchaselog">Purchase Log</a></li>
+               
+              </ul>
+            </li>
+            <li><a><i class="fa fa-bar-chart-o"></i>Manage Reports <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                  <li><a href="/report/rowmaterialreport">Row Materials Report</a></li>
+                  <li><a href="/report/wipreport">WIP Report</a></li>
+                  <li><a href="/report/inventoryreport">Inventory Report</a></li>
+                  <li><a href="/report/salesreport">Sales Report</a></li>
+                  
+                </ul>
+              </li>
+              <li><a><i class="fa fa-cogs"></i>Manage Configuration <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                  <li><a href="/config/creatematerial">Create New Material</a></li>
+                  <li><a href="/config/createproduct">Create New Product</a></li>
+                  <li><a href="/config/createbankaccount">Create New Bank Account</a></li>
+                  <li><a href="/config/createbrand">Create New Brand</a></li>
+                  <li><a href="/config/setproductprice">Set Product Price</a></li>
+                  <li><a href="/config/createnewshop">Create New Shop</a></li>
+                  <li><a href="/config/createnewwarehouse">Create New Warehouse</a></li>
+                  <li><a href="/config/createempposition">Create Employee Position</a></li>
+                </ul>
+              </li>
+          </ul>
+        </div>
+      
+      </div>
+      <!-- /sidebar menu -->
+
+      <!-- /menu footer buttons -->
+     
+      <!-- /menu footer buttons -->
+    </div>
+  </div>

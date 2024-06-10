@@ -1,0 +1,595 @@
+<html lang="en">
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Meta, title, CSS, favicons, etc. -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  
+	<!-- Bootstrap -->
+	<link href="../../../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link href="../../../../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<!-- NProgress -->
+	<link href="../../../../vendors/nprogress/nprogress.css" rel="stylesheet">
+	<!-- iCheck -->
+	<link href="../../../../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+	<!-- bootstrap-wysiwyg -->
+	<link href="../../../../vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+	<!-- Select2 -->
+	<link href="../../../../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+	<!-- Switchery -->
+	<link href="../../../../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+	<!-- starrr -->
+	<link href="../../../../vendors/starrr/dist/starrr.css" rel="stylesheet">
+	<!-- bootstrap-daterangepicker -->
+	<link href="../../../../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+	<!-- Custom Theme Style -->
+	<link href="../../../../build/css/custom.min.css" rel="stylesheet">
+	<link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.js"></script>
+
+    <!-- Include Buttons extension CSS and JavaScript -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+
+</head>
+
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+            <% if(user.user_roll == "admin"){%>
+                <%- include ('./partials/sidebar') %>
+             <% }else if(user.user_roll == "Sales_Manager"){%>
+              <%- include ('./partials/sidebarsalesmanager') %>
+              <% }else if(user.user_roll =="Inventory_Manager"){%>
+                <%- include ('./partials/sidebarinventorymgr') %>
+                <% }else if( user.user_roll ==="Production_Manager" ){%>
+                  <%- include ('./partials/sidebarproductionmgr') %>
+                  <% }%>
+            <!-- top navigation -->
+            <%- include ('./partials/header') %>
+			<!-- /top navigation -->
+
+			<!-- page content -->
+			<div class="right_col" role="main">
+                
+				<div class="">
+					<div class="container-fluid">
+                        <div class="page-header min-height-100 border-radius-xl mt-4" style="background-image: url('../../../../assets/img/curved-images/sds.jpg'); background-position-y: 50%;">
+                          <span class="mask  opacity-6"></span>
+                          <div >
+                            <nav aria-label="breadcrumb">
+                              <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item"><a href="#">Manage Production</a></li>
+                               
+                                <li class="breadcrumb-item active" aria-current="page">Mattress Production</li>
+                              </ol>
+                            </nav>
+                          </div>
+                        </div>
+                      
+                      </div>
+					<div class="clearfix"></div>
+					<div class="row">
+                        <%- include ('./partials/messages')%>
+						<div class="col-md-12 col-sm-12 ">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>Add Mattress Production</h2>
+									
+									<div class="clearfix"></div>
+								</div>
+								
+								<div class="x_content">
+									
+									<br />
+									
+									<ul class="nav nav-tabs justify-content-end bar_tabs" id="myTab" role="tablist">
+										<li class="nav-item">
+										  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home1" role="tab" aria-controls="home" aria-selected="true">Add New WIP Mattress Production</a>
+										</li>
+										
+										<li class="nav-item">
+                                            <a class="nav-link " id="home2-tab" data-toggle="tab" href="#home2" role="tab" aria-controls="home2" aria-selected="true">Add Finished Mattress Production</a>
+                                          </li>
+										<li class="nav-item">
+											<a class="nav-link" id="contact2-tab" data-toggle="tab" href="#contact2" role="tab" aria-controls="contact2" aria-selected="false"><i class="fa fa-list"></i>WIP Mattress Production List</a>
+										  </li>
+                                          <li class="nav-item">
+											<a class="nav-link" id="contact3-tab" data-toggle="tab" href="#contact3" role="tab" aria-controls="contact3" aria-selected="false"><i class="fa fa-list"></i>Finished Mattress Production List</a>
+										  </li>
+									  </ul>
+									  <div class="tab-content" id="myTabContent">
+										<div class="tab-pane fade show active" id="home1" role="tabpanel" aria-labelledby="home-tab">
+											<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/productionmanager/addnewwipmattressproduction" method="post">
+
+												
+												<div class="item form-group">
+													<label class="col-form-label col-md-3 col-sm-3 label-align" for="full-name">Block Production Batch <span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 ">
+														<select id="blockid" name="blockid"  required="required" class="form-control ">
+                                                            <option value="0">Select block production batch by date</option>
+															<% blockprolist.forEach(function(row){%>
+																<option value="<%= row.blockid %>">Name_<%= row.batchname %>_Production_Date_<%= new Date(row.createdAt).toLocaleDateString() %></option>
+															<%})%>
+                                                            </select>
+													</div>
+												</div>
+												<div class="item form-group">
+													<label class="col-form-label col-md-3 col-sm-3 label-align" for="full-name">Product Name(By Size) <span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 ">
+														<select id="productid" name="productid"  required="required" class="form-control ">
+                                                            <option value="0">Select product name</option>
+															<% productlist.forEach(function(row){%>
+																<option value="<%= row.productid %>"><%= row.productname %></option>
+															<%})%>
+                                                            </select>
+													</div>
+												</div>
+												<div class="item form-group">
+													<label class="col-form-label col-md-3 col-sm-3 label-align">Amount/Number</label>
+													<div class="col-md-6 col-sm-6">
+													<input type="number" class="form-control" name="amount" id="amount">
+													<span class="fa fa-plus form-control-feedback right" id="addamountmaterial" aria-hidden="true"></span>
+													</div>
+													</div>
+													<div class="item form-group">
+														<div class="col-md-6 col-sm-6 offset-md-3" id="combinationlist">
+															<label><code>Product List Will Be Here!</code></label><br>
+															<ul class="col-md-6 col-sm-6" id="list">
+		
+															</ul>
+														</div>
+													</div>
+													
+												<div class="ln_solid"></div>
+												<div class="item form-group">
+													<div class="col-md-6 col-sm-6 offset-md-3">
+														<input type="hidden" name="rowmaterialamountobjarray" id="rowmaterialamountobjarray">
+														<button type="submit" class="btn btn-success btn-block">Submit</button>
+													</div>
+												</div>
+		
+											</form>
+											<script>
+												document.addEventListener("DOMContentLoaded", function () {
+													const rowMaterialAmountArray = []; // Initialize an empty array to store JSON objects
+												
+													document.getElementById("addamountmaterial").addEventListener("click", function () {
+														const productId = document.getElementById("productid").value;
+														const batchId = document.getElementById("blockid").value;
+														const amountInput = document.getElementById("amount");
+														const amount = parseFloat(amountInput.value); // Parse the input as a float
+														const rowMaterialSelect = document.getElementById("productid");
+														const selectedOption = rowMaterialSelect.options[rowMaterialSelect.selectedIndex];
+														const productName = selectedOption.text; // Get the text of the selected option
+												
+														if (batchId !=="0" && productId !== "0" && amount !== null && amount !== 0) {
+															const rowMaterialAmountObj = {
+																batchId: batchId,
+																productId: productId,
+																productName: productName,
+																amount: amount
+															};
+												
+															rowMaterialAmountArray.push(rowMaterialAmountObj);
+												
+															// Append the JSON object to the list
+															//$("#list").append("<li><input type='checkbox'  class='form-check-input' checked >" + rowMaterialName + " " + amount + "<span class='removeItem' data-rowMaterialId='${rowMaterialId}'>Remove</span></li>");
+															const listItem = document.createElement("li");
+            listItem.innerHTML = `<input type='checkbox' class='form-check-input' checked > ${productName} ${amount} <span class='removeItem badge bg-red' data-rowMaterialId='${productId}'>Remove</span>`;
+            document.getElementById("list").appendChild(listItem);
+
+															// Update the hidden input field with the array of objects
+															//document.getElementById("rowmaterialamountobjarray").value = JSON.stringify(rowMaterialAmountArray);
+															updateRowMaterialAmountArray();
+
+
+															// Clear the input fields
+															amountInput.value = "";
+															document.getElementById("productid").value = "0";
+														}
+													});
+													document.getElementById("list").addEventListener("click", function (event) {
+        if (event.target.classList.contains("removeItem")) {
+            const rowMaterialIdToRemove = event.target.getAttribute("data-rowMaterialId");
+
+            // Remove the item from the array
+            const indexToRemove = rowMaterialAmountArray.findIndex(item => item.productId === rowMaterialIdToRemove);
+            if (indexToRemove !== -1) {
+                rowMaterialAmountArray.splice(indexToRemove, 1);
+
+                // Update the hidden input field with the updated array of objects
+                updateRowMaterialAmountArray();
+
+                // Remove the list item from the DOM
+                event.target.parentElement.remove();
+            }
+        }
+    });
+
+    // Function to update the hidden input field with the array of objects
+    function updateRowMaterialAmountArray() {
+        document.getElementById("rowmaterialamountobjarray").value = JSON.stringify(rowMaterialAmountArray);
+    }
+												
+												
+												});
+												</script>
+										</div>
+                                        <div class="tab-pane fade" id="home2" role="tabpanel" aria-labelledby="home2-tab">
+											<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/productionmanager/addnewfinalmattressproduction" method="post">
+
+												<div class="item form-group">
+													<label class="col-form-label col-md-3 col-sm-3 label-align" for="full-name">Product Name(By Size) <span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 ">
+														<select id="fproductid" name="fproductid"  required="required" class="form-control ">
+                                                            <option value="0">Select product name</option>
+															<% productlist.forEach(function(row){%>
+																<option value="<%= row.productid %>"
+																	data-fabric-need="<%= row.fibericneed %>"
+																	data-plastic-need="<%= row.plasticneed %>"><%= row.productname %></option>
+															<%})%>
+                                                            </select>
+													</div>
+												</div>
+												<div class="item form-group">
+													<label class="col-form-label col-md-3 col-sm-3 label-align" for="full-name">Product Name(By Size) <span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 ">
+														<select id="fbrandid" name="fbrandid"  required="required" class="form-control ">
+                                                            <option value="0">Select brand name</option>
+															<% brandlist.forEach(function(row){%>
+																<option value="<%= row.brandid %>"><%= row.brandname %></option>
+															<%})%>
+                                                            </select>
+													</div>
+												</div>
+												<div class="item form-group">
+													<label class="col-form-label col-md-3 col-sm-3 label-align">Amount/Number</label>
+													<div class="col-md-6 col-sm-6">
+													<input type="number" class="form-control" name="famount" id="famount">
+													<span class="fa fa-plus form-control-feedback right" id="faddamountmaterial" aria-hidden="true"></span>
+													</div>
+													</div>
+													<div class="item form-group">
+														<div class="col-md-6 col-sm-6 offset-md-3" id="combinationlist">
+															<label><code>Final Product List Will Be Here!</code></label><br>
+															<ul class="col-md-8 col-sm-8" id="listf">
+		
+															</ul>
+														</div>
+													</div>
+													
+															<div class="item form-group">
+																<label class="col-form-label col-md-3 col-sm-3 label-align" for="full-name">Warehouse Stored <span class="required">*</span>
+																</label>
+																<div class="col-md-6 col-sm-6 ">
+																	<select id="warehouse" name="warehouse"  required="required" class="form-control ">
+																		<option value="0">Select warehouse</option>
+																		<% warehouselist.forEach(function(row){%>
+																			<option value="<%= row.warehouseid %>"><%= row.warehousename %></option>
+																		<%})%>
+																		</select>
+																</div>
+															</div>
+												<div class="ln_solid"></div>
+												<div class="item form-group">
+													<div class="col-md-6 col-sm-6 offset-md-3">
+														<input type="hidden" name="frowmaterialamountobjarray" id="frowmaterialamountobjarray">
+														<button type="submit" class="btn btn-success btn-block">Submit</button>
+													</div>
+												</div>
+		
+											</form>
+											<script>
+												document.addEventListener("DOMContentLoaded", function () {
+													const frowMaterialAmountArray = []; // Initialize an empty array to store JSON objects
+												
+													document.getElementById("faddamountmaterial").addEventListener("click", function () {
+														const fproductId = document.getElementById("fproductid").value;
+														const brandId = document.getElementById("fbrandid").value;
+														const warehouseId = document.getElementById("warehouse").value;
+														const famountInput = document.getElementById("famount");
+														const famount = parseFloat(famountInput.value); // Parse the input as a float
+														const rowMaterialSelect3 = document.getElementById("fproductid");
+														const selectedOption3 = rowMaterialSelect3.options[rowMaterialSelect3.selectedIndex];
+														const rowMaterialSelect2 = document.getElementById("fbrandid");
+														const selectedOption2 = rowMaterialSelect2.options[rowMaterialSelect2.selectedIndex];
+														const selectedOption = document.getElementById("fproductid").options[document.getElementById("fproductid").selectedIndex];
+
+														// Get the fabric need and plastic need values from the data attributes
+														const fabricNeed = selectedOption.getAttribute("data-fabric-need");
+														const plasticNeed = selectedOption.getAttribute("data-plastic-need");
+														const fproductName = selectedOption3.text; // Get the text of the selected option
+												        const brandName = selectedOption2.text;
+														if (brandId !=="0" && fproductId !== "0" && famount !== null && famount !== 0) {
+															const rowMaterialAmountObj1 = {
+																brandId: brandId,
+																productId: fproductId,
+																productName: fproductName,
+																brandName:brandName,
+																fabricNeed:fabricNeed,
+																plasticNeed:plasticNeed,
+																amount: famount
+															};
+												                console.log(rowMaterialAmountObj1)
+															frowMaterialAmountArray.push(rowMaterialAmountObj1);
+															console.log(frowMaterialAmountArray)
+															// Append the JSON object to the list
+															//$("#list").append("<li><input type='checkbox'  class='form-check-input' checked >" + rowMaterialName + " " + amount + "<span class='removeItem' data-rowMaterialId='${rowMaterialId}'>Remove</span></li>");
+															const listItem = document.createElement("li");
+            listItem.innerHTML = `<input type='checkbox' class='form-check-input' checked > ${brandName} ${fproductName}: Total Amount ${famount} <span class='removeItem badge bg-red' data-rowMaterialId='${fproductId}'>Remove</span>`;
+            document.getElementById("listf").appendChild(listItem);
+
+															// Update the hidden input field with the array of objects
+															//document.getElementById("rowmaterialamountobjarray").value = JSON.stringify(rowMaterialAmountArray);
+															fupdateRowMaterialAmountArray();
+
+
+															// Clear the input fields
+															famountInput.value = "";
+															document.getElementById("fproductid").value = "0";
+															document.getElementById("fbrandid").value = "0";
+														}
+													});
+													document.getElementById("listf").addEventListener("click", function (event) {
+        if (event.target.classList.contains("removeItem")) {
+            const rowMaterialIdToRemove = event.target.getAttribute("data-rowMaterialId");
+
+            // Remove the item from the array
+            const indexToRemove = frowMaterialAmountArray.findIndex(item => item.productId === rowMaterialIdToRemove);
+            if (indexToRemove !== -1) {
+                frowMaterialAmountArray.splice(indexToRemove, 1);
+
+                // Update the hidden input field with the updated array of objects
+                fupdateRowMaterialAmountArray();
+
+                // Remove the list item from the DOM
+                event.target.parentElement.remove();
+            }
+        }
+    });
+
+    // Function to update the hidden input field with the array of objects
+    function fupdateRowMaterialAmountArray() {
+        document.getElementById("frowmaterialamountobjarray").value = JSON.stringify(frowMaterialAmountArray);
+    }
+												
+												
+												});
+												</script>
+										</div>
+									
+										<div class="tab-pane fade" id="contact2" role="tabpane" aria-labelledby="contact2-tab">
+											<table class="table jambo_table bulk_action" id="myTable">
+												<thead>
+												  <tr class="headings">
+												    <th>#</th>
+													<th class="column-title">Product Name </th>
+													<th class="column-title">Status</th>
+													<th class="column-title">Amount </th>
+												
+												  </tr>
+												</thead>
+						
+												<tbody>
+												
+											   <% if(wiplist.length >0){%>
+												<% var i =0 %>
+											   <% wiplist.forEach(function (row){%>
+												<% i++ %> 
+												<tr class="even pointer">
+													<td class=" "><%= i %></td>
+													<td><%= row.productname %></td>
+													<td class=" "><%= row.wipprogress %></td>
+												
+													<td class=" "><%= row.totalwip %></td>
+												
+												
+													
+
+													</td>
+												
+												  </tr>
+												
+											
+											   <% })}else{%>
+												<tr>
+													<div class="alert alert-warning alert-dismissible " role="alert">
+														<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+														</button>
+														<strong>Error!</strong> No Foam Mattress  WIP Data Found!
+													  </div>
+												</tr>
+											   <% }%>
+
+											
+											  </table>
+											  <button id="exportExcel">Export to Excel</button>
+
+										  </div>
+                                          <div class="tab-pane fade" id="contact3" role="tabpane" aria-labelledby="contact3-tab">
+											<table class="table jambo_table bulk_action" id="myTable2">
+												<thead>
+												  <tr class="headings">
+												    <th>#</th>
+													<th class="column-title">Product Name </th>
+													<th class="column-title">Brand Name </th>
+													<th class="column-title">Total Amount </th>
+													<th class="column-title">Added To Warehouse</th>
+												
+													<th class="column-title">Status</th>
+													<th class="column-title">Action</th>
+												  </tr>
+												</thead>
+						
+												<tbody>
+												
+											   <% if(finallist.length >0){%>
+												<% var i =0 %>
+											   <% finallist.forEach(function (row){%>
+												<% i++ %> 
+												<% var stat = row.status %>
+												<% if(stat ==="Deleted"){ %>
+													<tr class="even pointer" style="background-color: #8a2c2a; color: #fafafa;">
+														<td class=" "><%= i %></td>
+														<td><%= row.productname %></td>
+														<td class=" "><% var brand =  row.brandid %>
+															<% brandlist.forEach(function(row){%>
+															 <% if(row.brandid === brand){%>
+																<%= row.brandname %>
+															 <%}%>
+															<%})%>
+														
+														</td>
+													
+													
+													
+														<td class=" "><%= row.totalfinal %></td>
+														<td class=" "><% var ware = row.addedtowarehouse %>
+															<% warehouselist.forEach(function(row){%>
+																<% if(row.warehouseid === ware){%>
+																   <%= row.warehousename %>
+																<%}%>
+															   <%})%><br>
+															   Date: <%= new Date(row.createdAt).toLocaleDateString() %>
+														</td>
+														<td class=" "><%= row.status %></td>
+														<td class=" ">
+															<button type="button" class="btn btn-sm btn-outline-danger">Already RollBack</button>
+													
+														</td>
+													
+													  </tr>
+												<% }else {%>
+													<tr class="even pointer">
+														<td class=" "><%= i %></td>
+														<td><%= row.productname %></td>
+														<td class=" "><% var brand =  row.brandid %>
+															<% brandlist.forEach(function(row){%>
+															 <% if(row.brandid === brand){%>
+																<%= row.brandname %>
+															 <%}%>
+															<%})%>
+														
+														</td>
+													
+													
+													
+														<td class=" "><%= row.totalfinal %></td>
+														<td class=" "><% var ware = row.addedtowarehouse %>
+															<% warehouselist.forEach(function(row){%>
+																<% if(row.warehouseid === ware){%>
+																   <%= row.warehousename %>
+																<%}%>
+															   <%})%><br>
+															   Date:<%= new Date(row.createdAt).toLocaleDateString() %>
+														</td>
+														<td class=" "><%= row.status %></td>
+														<td class=" ">
+														<form action="/productionmanager/deleteandupdatefinalproduct/<%= row.fpid %>" method="post">
+															<button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+														</form>
+	
+														</td>
+													
+													  </tr>
+												<%}%>
+											
+											   <% })}else{%>
+												<tr>
+													<div class="alert alert-warning alert-dismissible " role="alert">
+														<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+														</button>
+														<strong>Error!</strong> No Foam Final Mattress Production Data Found!
+													  </div>
+												</tr>
+											   <% }%>
+
+											
+											  </table>
+										  </div>
+
+									  </div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- /page content -->
+
+			<!-- footer content -->
+		<%- include ('./partials/footer')%>
+			<!-- /footer content -->
+		</div>
+	</div>
+
+	<!-- jQuery -->
+	<script src="../../../../vendors/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="../../../../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- FastClick -->
+	<script src="../../../../vendors/fastclick/lib/fastclick.js"></script>
+	<!-- NProgress -->
+	<script src="../../../../vendors/nprogress/nprogress.js"></script>
+	<!-- bootstrap-progressbar -->
+	<script src="../../../../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+	<!-- iCheck -->
+	<script src="../../../../vendors/iCheck/icheck.min.js"></script>
+	<!-- bootstrap-daterangepicker -->
+	<script src="../../../../vendors/moment/min/moment.min.js"></script>
+	<script src="../../../../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<!-- bootstrap-wysiwyg -->
+	<script src="../../../../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+	<script src="../../../../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+	<script src="../../../../vendors/google-code-prettify/src/prettify.js"></script>
+	<!-- jQuery Tags Input -->
+	<script src="../../../../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+	<!-- Switchery -->
+	<script src="../../../../vendors/switchery/dist/switchery.min.js"></script>
+	<!-- Select2 -->
+	<script src="../../../../vendors/select2/dist/js/select2.full.min.js"></script>
+	<!-- Parsley -->
+	<script src="../../../../vendors/parsleyjs/dist/parsley.min.js"></script>
+	<!-- Autosize -->
+	<script src="../../../../vendors/autosize/dist/autosize.min.js"></script>
+	<!-- jQuery autocomplete -->
+	<script src="../../../../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+	<!-- starrr -->
+	<script src="../../../../vendors/starrr/dist/starrr.js"></script>
+	<!-- Custom Theme Scripts -->
+	<script src="../../../../build/js/custom.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			
+			$('#myTable2').DataTable();
+			$('#myTable').DataTable( {
+			
+    buttons: [
+        'copy', 'excel', 'pdf'
+    ]
+} );
+		});
+	</script>
+	<link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
+ 
+	<script src="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.js"></script>
+	
+	
+
+
+</body></html>

@@ -1,0 +1,20 @@
+<% if(adminstatinventory.length >0){%>
+    <% adminstatinventory.forEach(function (row){ %>
+        <div class="widget_summary">
+          <div class="w_left w_25">
+            <span><%= row.productname %>/<%= row.brandname %></span>
+          </div>
+          <div class="w_center w_55">
+            <div class="progress">
+              <div class="progress-bar bg-green" role="progressbar" aria-valuenow="<%= row.totamount %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= row.totamount %>%;">
+                <span class="sr-only"><%= row.totamount %></span>
+              </div>
+            </div>
+          </div>
+          <div class="w_right w_20">
+            <span><%= row.totamount %></span>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+     <% }) %>
+    <%} else{}%>

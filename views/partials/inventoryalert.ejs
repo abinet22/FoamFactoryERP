@@ -1,0 +1,51 @@
+<% if(inventoryalert.length >0){%>
+  <% inventoryalert.forEach(function (row){ %>
+      
+      <div class="alert alert-warning alert-dismissible " role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+        <strong>Alert!</strong> 
+        <%= row.productname %>/<%= row.brandname %> እያለቀ ስለሆነ ምርት እንዲመረት ለ ፕሮዳክሽን ዲፓርትመንት ያሳውቁ ።<br>
+        አሁን ያለው አጠቃላይ ብዛት <%= row.totamount %> !
+      </div>
+   <% }) %>
+  <%} else{%>
+   
+  <%}%>
+  <% if(inventoryalert2.length >0){%>
+    <% inventoryalert2.forEach(function (row){ %>
+        
+        <div class="alert alert-warning alert-dismissible " role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+          </button>
+          <strong>Alert!</strong> 
+          <%= row.productname %>/<%= row.brandname %> የምርት ብዛት <%= row.totamount %><br>
+          ምርት የተላከ ስለሆነ እባክዎ ምርቱን ተቀብለው የምርት ብዛት ያዘምኑ።
+        </div>
+     <% }) %>
+    <%} else{%>
+     
+    <%}%>
+    <% if(inventoryalert3.length >0){%>
+      <% inventoryalert3.forEach(function (row){ %>
+          
+          <div class="alert alert-warning alert-dismissible " role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+            </button>
+            <strong>Alert!</strong> 
+           
+            የምርት ጥያቄዎ ተቀባይነት አግኝቶ ተልኳል።<br>
+            እባክዎን ይቁጠሩ እና ምርቱ መቀበሉን ያረጋግጡ።
+          </div>
+       <% }) %>
+      <%} else{%>
+       
+      <%}%>
+    <%if(inventoryalert.length == 0 && inventoryalert2.length == 0 && inventoryalert3.length == 0  ){ %>
+      <div class="alert alert-success alert-dismissible " role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+        <strong>Alert!</strong> 
+        ምንም አይነት የማስጠንቀቂያ መልዕክት የለም።
+      </div>
+   <% }%>
